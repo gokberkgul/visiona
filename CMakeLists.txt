@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 
 project(detect)
 
@@ -8,9 +8,14 @@ include_directories(/usr/include/eigen3)
 
 include_directories(include)
 
+## Find packages
+
+find_package(OpenCV COMPONENTS core imgproc highgui calib3d REQUIRED)
+
 ## detectlib
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -g -o3 ${OTHERS_DEFINE}")
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(visiona SHARED src/Visiona.cpp src/DebugPlotConfig.cpp src/MarkerDetector_impl.cpp src/MarkerDetectorConfig.cpp src/Timer.cpp)
 
