@@ -43,7 +43,7 @@
 #include <unistd.h>
 #include <getopt.h>
 
-#include "opencv2/highgui/highgui.hpp"
+#include <opencv2/highgui.hpp>
 
 #include <libconfig.h++>
 
@@ -283,7 +283,7 @@ int main(int argc, char *argv[]) {
 
     string imgName = imagePath + string("/") + it->fileName;
 
-    Mat raw = imread(imgName, CV_LOAD_IMAGE_GRAYSCALE);
+    Mat raw = imread(imgName, IMREAD_GRAYSCALE);
 
     DebugPlotConfig *dbg = NULL;
 
@@ -291,7 +291,7 @@ int main(int argc, char *argv[]) {
       dbg = new DebugPlotConfig;
       dbg->rawImage = raw;
 
-      namedWindow("Debug", CV_GUI_EXPANDED);
+      namedWindow("Debug", WINDOW_GUI_EXPANDED);
       dbg->windowName = "Debug";
 
       dbg->blitSubRegion = true;

@@ -41,9 +41,9 @@
 
 #include <Eigen/Eigenvalues>
 
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/calib3d/calib3d.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/calib3d.hpp>
 
 using namespace cv;
 using namespace std;
@@ -466,7 +466,7 @@ void MarkerDetector_impl::detectContours(const Mat &edges, Contours &ctrs,
 
   ctrs.clear();
 
-  findContours(edges, ctrs, CV_RETR_LIST, CV_CHAIN_APPROX_NONE, Point(0, 0));
+  findContours(edges, ctrs, RETR_LIST, CHAIN_APPROX_NONE, Point(0, 0));
 
   if (dbg != NULL) {
 
@@ -913,7 +913,7 @@ void MarkerDetector_impl::computeNormalizedxCorr(
    //*/
 
 // compute cross correlation
-  matchTemplate(ref, sig, out, CV_TM_CCORR_NORMED);
+  matchTemplate(ref, sig, out, TM_CCORR_NORMED);
 }
 
 void MarkerDetector_impl::getSignalInsideCircle(const Mat& image,
@@ -1003,7 +1003,7 @@ Point2f MarkerDetector_impl::evalEllipse(float at, const Point2f& c, float a,
 
 void MarkerDetector_impl::initColorPlotSurfacte(Mat& in,
     const DebugPlotConfig *dbg) const {
-  cvtColor(dbg->rawImage, in, CV_GRAY2BGR);
+  cvtColor(dbg->rawImage, in, COLOR_GRAY2BGR);
 }
 
 void MarkerDetector_impl::drawCube(Mat& image, const Mat& R,
@@ -1314,7 +1314,7 @@ void MarkerDetector_impl::buildCircleHolesImage(const EllipsePoly& elps,
   }
 
   ofstream f(fname);
-  f << cv::format(img, "csv") << std::endl;
+  f << cv::format(img, cv::Formatter::FMT_CSV) << std::endl;
   f.close();
 
 }
@@ -1345,7 +1345,7 @@ void MarkerDetector_impl::initZoomedSubregionSurface(Point2i center, float r,
 
   // convert it to color
   Mat roibgr;
-  cvtColor(roi, roibgr, CV_GRAY2BGR);
+  cvtColor(roi, roibgr, COLOR_GRAY2BGR);
 
   // resize the image
   resize(roibgr, out, Size(size, size), 0, 0, INTER_NEAREST);
@@ -1681,8 +1681,8 @@ bool MarkerDetector_impl::measureRough(const cv::Mat &image,
     floodFill(image, _floodfillMask, tg->seedPoints[i], 255, &(bounds[i]),
         (tg->white - tg->black) * 0.4,
         255,
-        4 | ((2 + i * times) << 8) | CV_FLOODFILL_FIXED_RANGE
-            | CV_FLOODFILL_MASK_ONLY);
+        4 | ((2 + i * times) << 8) | FLOODFILL_FIXED_RANGE
+            | FLOODFILL_MASK_ONLY);
   }
 
   unsigned int cnt[NPTS];
