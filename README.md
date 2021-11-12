@@ -14,6 +14,21 @@ Some of the principles are described in details in the following (open-access) p
 
 This software was developed within the scope of the mapKITE project, funded by the European Commission through the Horizon 2020 program. The copyright holder is the École polytechnique fédérale de Lausanne (EPFL).
 
+## Install
+
+Install libconfig to a prefix. After localing the libconfig++Config.cmake, update with the following code
+
+```
+get_filename_component(prefix "${CMAKE_CURRENT_LIST_DIR}/../../../" REALPATH)
+set(LIBCONFIG++_FOUND 1)
+set(LIBCONFIG++_VERSION "1.7")
+set(LIBCONFIG++_LIBRARIES "${prefix}/lib/libconfig++.so")
+set(LIBCONFIG++_LDFLAGS "")
+set(LIBCONFIG++_INCLUDE_DIRS "${prefix}/include")
+set(LIBCONFIG++_CFLAGS "")
+unset(prefix)
+```
+
 ## Target
 
 An example of the coded targets employed by visiona is reported below.
