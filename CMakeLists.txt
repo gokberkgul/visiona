@@ -11,6 +11,7 @@ include_directories(include)
 ## Find packages
 
 find_package(OpenCV COMPONENTS core imgproc highgui calib3d REQUIRED)
+find_package(libconfig++ REQUIRED)
 
 ## detectlib
 
@@ -19,13 +20,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(visiona SHARED src/Visiona.cpp src/DebugPlotConfig.cpp src/MarkerDetector_impl.cpp src/MarkerDetectorConfig.cpp src/Timer.cpp)
 
-target_link_libraries(visiona config++ opencv_core opencv_calib3d opencv_highgui opencv_imgproc)
+target_link_libraries(visiona ${LIBCONFIG++_LIBRARIES} opencv_core opencv_calib3d opencv_highgui opencv_imgproc)
+target_include_directories(visiona PRIVATE ${LIBCONFIG++_INCLUDE_DIRS})
 
 ## batchdetector
 
 add_executable(batchdetector src/batchdetector.cpp)
 
-target_link_libraries(batchdetector visiona)
+target_link_libraries(batchdetector visiona ${LIBCONFIG++_LIBRARIES})
+target_include_directories(batchdetector PRIVATE ${LIBCONFIG++_INCLUDE_DIRS})
 
 ## install
 
