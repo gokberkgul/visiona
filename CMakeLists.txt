@@ -30,6 +30,13 @@ add_executable(batchdetector src/batchdetector.cpp)
 target_link_libraries(batchdetector visiona ${LIBCONFIG++_LIBRARIES})
 target_include_directories(batchdetector PRIVATE ${LIBCONFIG++_INCLUDE_DIRS})
 
+## test
+
+add_executable(test test.cpp)
+
+target_link_libraries(test visiona ${LIBCONFIG++_LIBRARIES})
+target_include_directories(test PRIVATE ${LIBCONFIG++_INCLUDE_DIRS})
+
 ## install
 
 install(TARGETS visiona DESTINATION lib)
